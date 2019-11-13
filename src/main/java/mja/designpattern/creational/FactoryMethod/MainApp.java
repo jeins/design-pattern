@@ -1,35 +1,17 @@
 package mja.designpattern.creational.FactoryMethod;
 
-import java.util.Optional;
-
+/**
+ * Factory Method
+ * Define an interface for creating an object, but let subclasses decide which class to instantiate.
+ * Factory Method lets a class defer instantiation to subclasses.
+ */
 public class MainApp {
-    public enum Transporter { PLANE, SHIP, TRUCK }
-    private Transport transport;
-
-    public void setTransporter(String transporter) {
-        if (transporter.equals(Transporter.PLANE.toString())) {
-            transport = new Plane();
-        } else if (transporter.equals(Transporter.SHIP.toString())) {
-            transport = new Ship();
-        } else if (transporter.equals(Transporter.TRUCK.toString())) {
-            transport = new Truck();
-        }
-    }
-
-    public void deliver(String packetName) {
-        if(Optional.ofNullable(transport).isPresent()) {
-            transport.deliver(packetName);
-        } else {
-            System.err.println("transporter not yet set!");
-        }
-    }
-
     public static void main(String[] args) {
-        String transporter = Transporter.SHIP.toString();
+        String transporter = PacketDelivery.Transporter.SHIP.toString();
         String packetName = "Books";
 
-        MainApp app = new MainApp();
-        app.setTransporter(transporter);
-        app.deliver(packetName);
+        PacketDelivery packetDelivery = new PacketDelivery();
+        packetDelivery.setTransporter(transporter);
+        packetDelivery.deliver(packetName);
     }
 }
